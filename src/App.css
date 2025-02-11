@@ -1,0 +1,191 @@
+/* Root Layout */
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  background-color: #f8f1ff; /* Soft lavender background */
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Logo Styling */
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms, transform 0.3s ease-in-out;
+  margin-bottom: 2rem;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #a685e2aa);
+  transform: scale(1.1);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+/* Logo Spin Animation */
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+/* Card Component */
+.card {
+  background-color: #ffffff;
+  border-radius: 20px; /* More rounded corners */
+  padding: 2rem;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  margin-bottom: 2rem;
+  text-align: left;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Read the Docs Text */
+.read-the-docs {
+  color: #888;
+  font-size: 1rem;
+}
+
+/* Navigation Styling */
+nav {
+  margin-top: 20px;
+}
+
+nav a {
+  margin-right: 10px;
+  text-decoration: none;
+  padding: 12px 20px;
+  background-color: #a685e2; /* Soft purple */
+  color: white;
+  border-radius: 30px; /* Rounded buttons */
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  background-color: #8c5dbf; /* Slightly darker purple */
+  transform: scale(1.05);
+}
+
+/* Form Styling */
+form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  max-width: 450px;
+  margin: 0 auto;
+  text-align: left;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Input and Select Styling */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select,
+textarea,
+input[type="date"] {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background-color: #fdf9ff; /* Soft pinkish background */
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+select:focus,
+textarea:focus,
+input[type="date"]:focus {
+  border-color: #a685e2;
+  outline: none;
+  box-shadow: 0 0 8px rgba(166, 133, 226, 0.5);
+}
+
+/* Button Styling */
+button {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #a685e2, #6d5fbf);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  background: linear-gradient(135deg, #8c5dbf, #5541a8);
+  transform: scale(1.05);
+}
+
+/* Multi-Select Styling */
+.css-2b097c-container {
+  width: 100%;
+}
+
+.css-yk16xz-control {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #fdf9ff;
+}
+
+.css-1pahdxg-control {
+  border-color: #a685e2 !important;
+  box-shadow: 0 0 8px rgba(166, 133, 226, 0.5) !important;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  #root {
+    padding: 1rem;
+  }
+
+  .card {
+    padding: 1.5rem;
+  }
+
+  form {
+    width: 100%;
+    padding: 1.5rem;
+  }
+
+  nav {
+    display: flex;
+    flex-direction: column;
+  }
+
+  nav a {
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+}
