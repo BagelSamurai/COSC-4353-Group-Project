@@ -21,67 +21,6 @@ const VolunteerMatching = () => {
 
       {/* main container: two panels side by side */}
       <div className="forms-container">
-        {/* left panel: Event Management Form */}
-        <div className="form-section">
-          <h2>Event Management Form</h2>
-          <form>
-            <div className="input-field">
-              <label htmlFor="eventName">Event Name</label>
-              <input
-                type="text"
-                id="eventName"
-                placeholder="enter event name"
-              />
-            </div>
-            <div className="input-field">
-              <label htmlFor="eventDesc">Event Description</label>
-              <textarea
-                id="eventDesc"
-                rows="3"
-                placeholder="enter description"
-              ></textarea>
-            </div>
-            <div className="input-field">
-              <label htmlFor="location">Location</label>
-              <input
-                type="text"
-                id="location"
-                placeholder="enter location"
-              />
-            </div>
-            <div className="input-field">
-              <label htmlFor="skills">Required Skills</label>
-              <select id="skills">
-                <option value="">Select Skills</option>
-                <option value="Packing">Packing</option>
-                <option value="Assisting">Assisting</option>
-                <option value="Coding">Coding</option>
-                <option value="Deployment">Deployment</option>
-              </select>
-            </div>
-            <div className="input-field">
-              <label htmlFor="urgency">Urgency</label>
-              <select id="urgency">
-                <option value="">Select Urgency</option>
-                <option value="High">High</option>
-                <option value="Normal">Normal</option>
-                <option value="Low">Low</option>
-              </select>
-            </div>
-            <div className="input-field">
-              <label htmlFor="date">Date</label>
-              <input
-                type="date"
-                id="date"
-                placeholder="mm/dd/yyyy"
-              />
-
-            </div>
-            <button type="submit" className="btn-submit">Submit</button>
-          </form>
-        </div>
-
-
         {/* Right panel: Volunteer Matching Form */}
         <div className="form-section">
           <h2>Volunteer Matching Form</h2>

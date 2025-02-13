@@ -16,7 +16,7 @@
 /* Big title */
 .app-title {
   font-size: 36px;
-  color: #5F3BA2; /* A deeper purple */
+  color: #8c5dbf; /* A deeper purple */
   margin: 0 0 15px;
 }
 
@@ -36,63 +36,40 @@
   font-weight: bold;
 }
 
-/* Two columns */
+/* Make the forms container take more width */
 .forms-container {
   display: flex;
-  gap: 40px; /* Spacing between columns */
   justify-content: center;
+  width: 80%; /* Adjust width to take more space */
+  margin: auto;
 }
 
-/* Each form panel */
+/* Expand the form section */
 .form-section {
   background-color: #fff;
-  width: 320px; 
+  width: 60%; /* Increase width */
+  max-width: 800px; /* Prevent it from being too wide */
   padding: 20px;
   border-radius: 8px;
 }
 
-/* Panel headings */
-.form-section h2 {
-  color: #5F3BA2;
-  margin-bottom: 20px;
-}
-
-/* Input fields */
-.input-field {
-  margin-bottom: 16px;
-}
-
-.input-field label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: 500;
-  color: #444;
-}
-
+/* Ensure input fields and buttons expand */
 .input-field input,
 .input-field textarea,
 .input-field select {
   width: 100%;
-  padding: 8px;
+  padding: 12px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
-  cursor: pointer;
-}
-
-/* Purple button */
+/* Make the submit button wider */
 .btn-submit {
-  background-color: #b47aea;
-  color: #fff;
-  padding: 10px 18px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
 }
+
 
 /* Volunteer info box on the right panel */
 .volunteer-info {
@@ -109,4 +86,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .volunteer-info strong {
   color: #5F3BA2;
+}
+
+/* Panel headings */
+.form-section h2 {
+  color: #5F3BA2;
+  margin-bottom: 20px;
 }
