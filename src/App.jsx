@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";  
+import VolunteerMatching from "./pages/VolunteerMatching";
 import './App.css';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Link to="/login">Login</Link> | 
         <Link to="/register">Register</Link> | 
         <Link to="/profile">Profile</Link>
+        <Link to="/volunteermatching">Volunteer Matching</Link>
       </nav>
 
       {/* Define Routes */}
@@ -21,6 +23,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} /> {/* Profile Route */}
+        <Route path="/volunteermatching" element={<VolunteerMatching />} />
       </Routes>
     </Router>
   );
