@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ onAdminLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -13,6 +13,9 @@ const Login = () => {
       if (email === "admin@example.com" && password === "admin123") {
         localStorage.setItem("user", email);
         localStorage.setItem("role", "admin");
+        if (onAdminLogin) {
+          onAdminLogin();
+        }
         navigate("/admin");
       } else {
         localStorage.setItem("user", email);

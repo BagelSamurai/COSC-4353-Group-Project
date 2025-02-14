@@ -1,40 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Profile from "./pages/Profile";
-import VolunteerMatching from "./pages/VolunteerMatching";
 import Admin from "./pages/Admin/Admin";
 import VolunteerHistory from "./pages/Admin/VolunteerHistory";
-import Events from "./pages/Events";
+import Events from "./pages/Admin/Events";
+import VolunteerMatching from "./pages/Admin/VolunteerMatching";
 import "./App.css";
 
-const Home = () => <h2>Home Page</h2>;
-
 const App = () => {
+  const [userRole, setUserRole] = useState(null);
+
+  const handleAdminLogin = () => setUserRole("admin");
+  const handleLogout = () => setUserRole(null);
+
   return (
     <Router>
       <div>
         <h1>Volunteer Management System</h1>
         <nav>
-          <Link to="/">Home</Link> |{" "}
-          <Link to="/login">Login</Link> |{" "}
-          <Link to="/register">Register</Link> |{" "}
-          <Link to="/profile">Profile</Link> |{" "}
-          <Link to="/volunteermatching">Volunteer Matching</Link> |{" "}
-          <Link to="/events">Events</Link> |{" "}
-          <Link to="/admin">Admin</Link>
+          {userRole === "admin" ? (
+            <button onClick={handleLogout}>Logout</button>
+          ) : (
+            <>
+              <Link to="/login">Login</Link> |{" "}
+              <Link to="/register">Register</Link>
+            </>
+          )}
         </nav>
       </div>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={<Login onAdminLogin={handleAdminLogin} />}
+        />
         <Route path="/register" element={<Register />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/volunteermatching" element={<VolunteerMatching />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/admin/*" element={<Admin />}>
+        <Route
+          path="/admin/*"
+          element={userRole === "admin" ? <Admin /> : <div />}
+        >
+          <Route index />
           <Route path="volunteer-history" element={<VolunteerHistory />} />
+          <Route path="event-management" element={<Events />} />
+          <Route path="volunteer-matching" element={<VolunteerMatching />} />
         </Route>
       </Routes>
     </Router>

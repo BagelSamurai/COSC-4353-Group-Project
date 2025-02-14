@@ -7,9 +7,9 @@ const Admin = () => {
     <div>
       <h1>Admin Dashboard</h1>
       <nav>
-        <Link to="volunteer-history">Volunteer History</Link> |{" "}
-        <Link to="event-management">Event Management</Link> |{" "}
-        <Link to="volunteer-matching">Volunteer Matching</Link>
+        <Link to="/admin/volunteer-history">Volunteer History</Link> |{" "}
+        <Link to="/admin/event-management">Event Management</Link> |{" "}
+        <Link to="/admin/volunteer-matching">Volunteer Matching</Link>
       </nav>
       <div>
         <Outlet />
