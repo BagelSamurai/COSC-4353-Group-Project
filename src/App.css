@@ -1,6 +1,7 @@
 /* Root Layout */
 #root {
-  max-width: 1280px;
+  width: 100%;
+  min-height: 100vh; 
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -68,7 +69,7 @@ nav {
   margin-top: 20px;
 }
 
-nav a {
+nav a { /*tabs such as login regsiter profile*/
   margin-right: 10px;
   text-decoration: none;
   padding: 12px 20px;
@@ -107,7 +108,7 @@ input[type="password"],
 select,
 textarea,
 input[type="date"] {
-  width: 100%;
+  width: 94%;
   padding: 12px;
   margin-top: 8px;
   border-radius: 8px;
@@ -115,6 +116,7 @@ input[type="date"] {
   font-size: 1rem;
   background-color: #fdf9ff; /* Soft pinkish background */
   transition: all 0.3s ease;
+  color: #000;
 }
 
 input[type="text"]:focus,
