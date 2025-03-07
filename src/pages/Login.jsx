@@ -1,28 +1,77 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ onAdminLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
+/*
   const handleLogin = (e) => {
     e.preventDefault();
     if (email && password) {
-      localStorage.setItem("user", email); // Temporary session storage
-      navigate("/profile");
+      // Dummy admin credentials
+      if (email === "admin@example.com" && password === "admin123") {
+        localStorage.setItem("user", email);
+        localStorage.setItem("role", "admin");
+        if (onAdminLogin) {
+          onAdminLogin();
+        }
+        navigate("/admin");
+      } else {
+        localStorage.setItem("user", email);
+        localStorage.setItem("role", "user");
+        navigate("/profile");
+      }
+    } else {
+      alert("Invalid credentials");
+    }
+  };*/
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    if (email && password) {
+      const response = await fetch("http://localhost:5000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        localStorage.setItem("user", email);
+        localStorage.setItem("role", data.role);
+        if (data.role === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/profile");
+        }
+      } else {
+        alert(data.message);
+      }
     } else {
       alert("Invalid credentials");
     }
   };
+  
 
   return (
     <div className="login-container">
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
-        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
         <button type="submit">Login</button>
       </form>
     </div>

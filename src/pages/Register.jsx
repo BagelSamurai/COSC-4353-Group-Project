@@ -6,7 +6,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleRegister = (e) => {
+  /*const handleRegister = (e) => {
     e.preventDefault();
     if (email && password) {
       // Store email and password temporarily (replace this with an actual backend)
@@ -16,7 +16,28 @@ const Register = () => {
     } else {
       alert("Please fill in both email and password");
     }
+  };*/
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    if (email && password) {
+      const response = await fetch("http://localhost:5000/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        navigate("/profile");
+      } else {
+        alert(data.message);
+      }
+    } else {
+      alert("Please fill in both email and password");
+    }
   };
+  
 
   return (
     <div className="register-container">
