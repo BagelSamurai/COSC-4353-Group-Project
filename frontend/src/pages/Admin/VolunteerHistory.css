@@ -1,0 +1,33 @@
+/* VolunteerHistory.css */
+.volunteer-app-container {
+  font-family: sans-serif;
+  background-color: #f7f0fb;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.app-title {
+  font-size: 36px;
+  color: #8c5dbf;
+  margin: 0 0 15px;
+}
+
+.form-section {
+  background-color: #fff;
+  width: 60%;
+  max-width: 800px;
+  margin: 0 auto; /* Center the form section itself */
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Center the table */
+.form-section table {
+  margin: 0 auto;
+}
