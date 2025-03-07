@@ -1,0 +1,95 @@
+/* Overall page container */
+.volunteer-app-container {
+  font-family: sans-serif;
+  background-color: #f7f0fb; /* Light purple background */
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+}
+
+/* Header styles */
+.app-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Big title */
+.app-title {
+  font-size: 36px;
+  color: #8c5dbf; /* A deeper purple */
+  margin: 0 0 15px;
+}
+
+/* Nav link container */
+.nav-links {
+  display: inline-flex;
+  gap: 15px;
+}
+
+/* Buttons for nav */
+.nav-button {
+  background-color: #a685e2;
+  color: #fff;
+  border-radius: 20px;
+  padding: 8px 20px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Make the forms container take more width */
+.forms-container {
+  display: flex;
+  justify-content: center;
+  width: 80%; /* Adjust width to take more space */
+  margin: auto;
+}
+
+/* Expand the form section */
+.form-section {
+  background-color: #fff;
+  width: 60%; /* Increase width */
+  max-width: 800px; /* Prevent it from being too wide */
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Ensure input fields and buttons expand */
+.input-field input,
+.input-field textarea,
+.input-field select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Make the submit button wider */
+.btn-submit {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+}
+
+
+/* Volunteer info box on the right panel */
+.volunteer-info {
+  margin-top: 20px;
+  background-color: #f0e2f9;
+  padding: 10px 15px;
+  border-radius: 6px;
+}
+
+.volunteer-name {
+  color: #b47aea;
+  margin-top: 0;
+}
+
+.volunteer-info strong {
+  color: #5F3BA2;
+}
+
+/* Panel headings */
+.form-section h2 {
+  color: #5F3BA2;
+  margin-bottom: 20px;
+}

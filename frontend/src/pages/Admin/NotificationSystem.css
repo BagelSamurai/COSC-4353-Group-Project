@@ -1,0 +1,70 @@
+/* NotificationBell.css */
+
+/* Container for the bell and dropdown */
+.notification-bell-container {
+  position: relative; /* So the dropdown can be positioned absolutely */
+  display: inline-block;
+}
+
+/* The bell button itself */
+.notification-bell {
+  background-color: purple; /* Default background color */
+  border: none;
+  cursor: pointer;
+  position: relative;
+  font-size: 1rem;
+  color: #fff; /* Text/icon color for contrast */
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease; /* Smooth color transition */
+}
+
+/* Change background to red on hover */
+.notification-bell:hover {
+  background-color: red;
+}
+
+/* The red badge showing the count of notifications */
+.notification-count {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
+
+/* Dropdown menu */
+.notification-dropdown {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  width: 200px;
+  max-height: 250px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  padding: 0.5rem;
+}
+
+/* Notification list inside the dropdown */
+.notification-dropdown ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Individual notification items */
+.notification-dropdown li {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+.notification-dropdown li:hover {
+  background-color: #f5f5f5;
+}
