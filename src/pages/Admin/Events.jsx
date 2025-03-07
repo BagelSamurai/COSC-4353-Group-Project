@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Select from "react-select";
+import axios from "axios";
 
 const Events = () => {
   const [eventName, setEventName] = useState("");
@@ -54,23 +55,33 @@ const Events = () => {
     setSkills(selectedOptions);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("New Event Created:", {
+    
+    console.log("Form submitted!");
+    
+    const eventData = {
       eventName,
       description,
       location,
-      skills: skills.map((skill) => skill.value), // Extract values
+      skills: skills.map((skill) => skill.value),
       urgency,
       date,
-    });
+    };
+
+    try {
+      const response = await axios.post("http://localhost:5000/api/events", eventData);
+      alert("Event created successfully!");
+      console.log(response.data);
+    } catch (error) {
+      console.error("There was an error creating the event!", error);
+    }
   };
 
   return (
     <div>
       <h2>Create Event</h2>
       <form onSubmit={handleSubmit}>
-        {/* Event Name */}
         <label>Event Name:</label>
         <input
           type="text"
@@ -81,7 +92,6 @@ const Events = () => {
         />
         <br />
 
-        {/* Event Description */}
         <label>Description:</label>
         <textarea
           value={description}
@@ -90,7 +100,6 @@ const Events = () => {
         />
         <br />
 
-        {/* Location */}
         <label>Location:</label>
         <textarea
           value={location}
@@ -99,7 +108,6 @@ const Events = () => {
         />
         <br />
 
-        {/* Required Skills (Multi-Select Dropdown) */}
         <label>Required Skills:</label>
         <Select
           options={skillOptions}
@@ -110,7 +118,6 @@ const Events = () => {
         />
         <br />
 
-        {/* Urgency Level */}
         <label>Urgency:</label>
         <select
           value={urgency}
@@ -126,7 +133,6 @@ const Events = () => {
         </select>
         <br />
 
-        {/* Event Date */}
         <label>Event Date:</label>
         <input
           type="date"
@@ -136,7 +142,6 @@ const Events = () => {
         />
         <br />
 
-        {/* Submit Button */}
         <button type="submit">Create Event</button>
       </form>
     </div>

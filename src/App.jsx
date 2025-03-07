@@ -1,52 +1,44 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Admin from "./pages/Admin/Admin";
-import VolunteerHistory from "./pages/Admin/VolunteerHistory";
-import Events from "./pages/Admin/Events";
-import VolunteerMatching from "./pages/Admin/VolunteerMatching";
-import "./App.css";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+//import Login from './pages/Login';
+//import Register from './pages/Register';
+import Events from './pages/admin/Events';
+import './App.css';
+
+const Home = () => <h2>Home Page</h2>;
+//const Login = () => <h2>Login Page</h2>;
+//const Register = () => <h2>Register Page</h2>;
+//const Profile = () => <h2>Profile Page</h2>;
 
 const App = () => {
-  const [userRole, setUserRole] = useState(null);
-
-  const handleAdminLogin = () => setUserRole("admin");
-  const handleLogout = () => setUserRole(null);
-
   return (
     <Router>
       <div>
         <h1>Volunteer Management System</h1>
         <nav>
-          {userRole === "admin" ? (
-            <button onClick={handleLogout}>Logout</button>
-          ) : (
-            <>
-              <Link to="/login">Login</Link> |{" "}
-              <Link to="/register">Register</Link>
-            </>
-          )}
+          <Link to="/">Home</Link> | <Link to="/events">Events</Link>
         </nav>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        
+          <Route path="/events" element={<Events />} />
+        </Routes>
       </div>
-      <Routes>
-        <Route
-          path="/login"
-          element={<Login onAdminLogin={handleAdminLogin} />}
-        />
-        <Route path="/register" element={<Register />} />
-        <Route
-          path="/admin/*"
-          element={userRole === "admin" ? <Admin /> : <div />}
-        >
-          <Route index />
-          <Route path="volunteer-history" element={<VolunteerHistory />} />
-          <Route path="event-management" element={<Events />} />
-          <Route path="volunteer-matching" element={<VolunteerMatching />} />
-        </Route>
-      </Routes>
     </Router>
   );
 };
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
