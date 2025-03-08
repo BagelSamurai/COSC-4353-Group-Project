@@ -1,4 +1,3 @@
-/* Overall page container */
 .volunteer-app-container {
   font-family: sans-serif;
   background-color: #f7f0fb; /* Light purple background */
@@ -70,26 +69,65 @@
   font-size: 16px;
 }
 
+/* Error states */
+.input-field select.error {
+  border-color: #ff4444;
+}
 
-/* Volunteer info box on the right panel */
+.error-message {
+  color: #ff4444;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+
+/* Enhanced volunteer info display */
 .volunteer-info {
   margin-top: 20px;
   background-color: #f0e2f9;
-  padding: 10px 15px;
-  border-radius: 6px;
+  padding: 15px 20px;
+  border-radius: 8px;
+  border-left: 4px solid #8c5dbf;
+}
+
+.volunteer-info p {
+  margin: 8px 0;
+  line-height: 1.4;
 }
 
 .volunteer-name {
-  color: #b47aea;
+  color: #5f3ba2;
   margin-top: 0;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #d4c1e9;
+  padding-bottom: 8px;
 }
 
-.volunteer-info strong {
-  color: #5F3BA2;
+/* Match quality indicators */
+.volunteer-info .match-quality {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: #e9ecef;
+  font-size: 0.9em;
+  margin-top: 8px;
 }
 
 /* Panel headings */
 .form-section h2 {
-  color: #5F3BA2;
+  color: #5f3ba2;
   margin-bottom: 20px;
+}
+
+.input-field label {
+  color: #000;
+  font-weight: bold;
+}
+
+/* Make Skills and Preferences values black */
+.volunteer-info p {
+  color: #000;
+}
+
+.volunteer-info strong {
+  color: #5f3ba2; /* Keep labels purple */
 }

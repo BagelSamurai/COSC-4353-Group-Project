@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Login = ({ onAdminLogin }) => {
+const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     if (email && password) {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch("http://localhost:5000/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -19,27 +19,19 @@ const Login = ({ onAdminLogin }) => {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("user", email);
-        localStorage.setItem("role", data.role);
-
-        if (data.role === "admin") {
-          if (onAdminLogin) onAdminLogin();
-          navigate("/admin");
-        } else {
-          navigate("/profile");
-        }
+        navigate("/profile");
       } else {
         alert(data.message);
       }
     } else {
-      alert("Invalid credentials");
+      alert("Please fill in both email and password");
     }
   };
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
+    <div className="register-container">
+      <h2>Register</h2>
+      <form onSubmit={handleRegister}>
         <input
           type="email"
           placeholder="Email"
@@ -54,10 +46,10 @@ const Login = ({ onAdminLogin }) => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Register;
