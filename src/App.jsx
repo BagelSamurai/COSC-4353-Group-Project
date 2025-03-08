@@ -12,6 +12,7 @@ function App() {
     <Router>
       <div>
         <h1>Welcome</h1>
+        <h1 style={{ color: "#8c5dbf" }}>Volunteer Management System</h1>
         <nav>
           <Link to="/login">Login</Link> |{" "}
           <Link to="/register">Register</Link> |{" "}

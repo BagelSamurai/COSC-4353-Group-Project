@@ -5,91 +5,149 @@
   min-height: 100vh;
   margin: 0;
   padding: 20px;
-}
-
-/* Header styles */
-.app-header {
+ }
+ 
+ 
+ /* Header styles */
+ .app-header {
   text-align: center;
   margin-bottom: 30px;
-}
-
-/* Big title */
-.app-title {
+ }
+ 
+ 
+ /* Big title */
+ .app-title {
   font-size: 36px;
   color: #8c5dbf; /* A deeper purple */
   margin: 0 0 15px;
-}
-
-/* Nav link container */
-.nav-links {
+ }
+ 
+ 
+ /* Nav link container */
+ .nav-links {
   display: inline-flex;
   gap: 15px;
-}
-
-/* Buttons for nav */
-.nav-button {
+ }
+ 
+ 
+ /* Buttons for nav */
+ .nav-button {
   background-color: #a685e2;
   color: #fff;
   border-radius: 20px;
   padding: 8px 20px;
   text-decoration: none;
   font-weight: bold;
-}
-
-/* Make the forms container take more width */
-.forms-container {
+ }
+ 
+ 
+ /* Make the forms container take more width */
+ .forms-container {
   display: flex;
   justify-content: center;
   width: 80%; /* Adjust width to take more space */
   margin: auto;
-}
-
-/* Expand the form section */
-.form-section {
+ }
+ 
+ 
+ /* Expand the form section */
+ .form-section {
   background-color: #fff;
   width: 60%; /* Increase width */
   max-width: 800px; /* Prevent it from being too wide */
   padding: 20px;
   border-radius: 8px;
-}
-
-/* Ensure input fields and buttons expand */
-.input-field input,
-.input-field textarea,
-.input-field select {
+ }
+ 
+ 
+ /* Ensure input fields and buttons expand */
+ .input-field input,
+ .input-field textarea,
+ .input-field select {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
-}
-
-/* Make the submit button wider */
-.btn-submit {
+ }
+ 
+ 
+ /* Make the submit button wider */
+ .btn-submit {
   width: 100%;
   padding: 12px;
   font-size: 16px;
-}
-
-
-/* Volunteer info box on the right panel */
-.volunteer-info {
+ }
+ 
+ 
+ /* Error states */
+ .input-field select.error {
+  border-color: #ff4444;
+ }
+ 
+ 
+ .error-message {
+  color: #ff4444;
+  font-size: 0.9em;
+  margin-top: 5px;
+ }
+ 
+ 
+ /* Enhanced volunteer info display */
+ .volunteer-info {
   margin-top: 20px;
   background-color: #f0e2f9;
-  padding: 10px 15px;
-  border-radius: 6px;
-}
-
-.volunteer-name {
-  color: #b47aea;
-  margin-top: 0;
-}
-
-.volunteer-info strong {
+  padding: 15px 20px;
+  border-radius: 8px;
+  border-left: 4px solid #8c5dbf;
+ }
+ 
+ 
+ .volunteer-info p {
+  margin: 8px 0;
+  line-height: 1.4;
+ }
+ 
+ 
+ .volunteer-name {
   color: #5F3BA2;
-}
-
-/* Panel headings */
-.form-section h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #d4c1e9;
+  padding-bottom: 8px;
+ }
+ 
+ 
+ /* Match quality indicators */
+ .volunteer-info .match-quality {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: #e9ecef;
+  font-size: 0.9em;
+  margin-top: 8px;
+ }
+ 
+ 
+ /* Panel headings */
+ .form-section h2 {
   color: #5F3BA2;
   margin-bottom: 20px;
-}
+ }
+ 
+ 
+ .input-field label {
+  color: #000;
+  font-weight: bold;
+ }
+ 
+ 
+ /* Make Skills and Preferences values black */
+ .volunteer-info p {
+  color: #000;
+ }
+ 
+ 
+ .volunteer-info strong {
+  color: #5F3BA2; /* Keep labels purple */
+ }
+ 
