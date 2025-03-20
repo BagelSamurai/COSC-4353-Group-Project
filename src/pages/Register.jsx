@@ -20,24 +20,62 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     if (email && password) {
+<<<<<<< Updated upstream
       const response = await fetch("http://localhost:5000/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
+=======
+        const response = await fetch("http://localhost:5000/api/auth/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            navigate("/profile");
+        } else {
+            alert(data.message || "Registration failed");
+        }
+    } else {
+        alert("Please fill in both email and password");
+    }
+};
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+      const response = await fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+>>>>>>> Stashed changes
       });
+
       const data = await response.json();
       if (response.ok) {
-        navigate("/profile");
+          window.location.href = data.redirect;  // Redirects to profile page
       } else {
-        alert(data.message);
+          setError(data.error || 'Registration failed');
       }
+<<<<<<< Updated upstream
     } else {
       alert("Please fill in both email and password");
     }
   };
   
+=======
+  } catch (error) {
+      setError('Server error. Please try again later.');
+  }
+};
+
+>>>>>>> Stashed changes
 
   return (
     <div className="register-container">
