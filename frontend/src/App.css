@@ -12,6 +12,12 @@
   font-family: 'Poppins', sans-serif;
 }
 
+/* Header Styling */
+h1, h2, h3, h4, h5, h6 {
+  color: #8c5dbf;
+  margin-bottom: 1rem;
+}
+
 /* Logo Styling */
 .logo {
   height: 6em;
@@ -102,6 +108,13 @@ form {
   padding: 2rem;
   border-radius: 15px;
   box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+  color: #000; /* Add black text color for form elements */
+}
+
+/* Add label styling */
+form label {
+  color: #000;
+  font-weight: 500;
 }
 
 /* Input and Select Styling */
