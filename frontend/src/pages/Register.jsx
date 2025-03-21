@@ -6,13 +6,23 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     if (email && password) {
-      // Store email and password temporarily (replace this with an actual backend)
-      localStorage.setItem("user", email);
-      localStorage.setItem("password", password); // Store password temporarily (for development)
-      navigate("/profile");
+      const response = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        navigate("/profile");
+      } else {
+        alert(data.message);
+      }
     } else {
       alert("Please fill in both email and password");
     }

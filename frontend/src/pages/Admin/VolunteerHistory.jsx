@@ -1,3 +1,4 @@
+// VolunteerHistory.jsx
 import React, { useState, useEffect } from "react";
 import "./VolunteerHistory.css"; // Make sure this file contains the CSS below
 
@@ -5,20 +6,29 @@ const VolunteerHistory = () => {
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    const fetchHistory = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:5000/api/volunteer-history"
-        );
-        const data = await response.json();
-        console.log(data); // Log the fetched data
-        setHistory(data);
-      } catch (error) {
-        console.error("Error fetching volunteer history:", error);
-      }
-    };
-
-    fetchHistory();
+    const fetchedHistory = [
+      {
+        id: 1,
+        eventName: "Charity Run",
+        eventDescription: "A running event for charity.",
+        location: "Central Park",
+        requiredSkills: ["Running", "First Aid"],
+        urgency: "High",
+        eventDate: "2025-03-10",
+        participationStatus: "Confirmed",
+      },
+      {
+        id: 2,
+        eventName: "Food Drive",
+        eventDescription: "Collecting food for the needy.",
+        location: "Community Center",
+        requiredSkills: ["Organization", "Cooking"],
+        urgency: "Medium",
+        eventDate: "2025-04-15",
+        participationStatus: "Pending",
+      },
+    ];
+    setHistory(fetchedHistory);
   }, []);
 
   return (

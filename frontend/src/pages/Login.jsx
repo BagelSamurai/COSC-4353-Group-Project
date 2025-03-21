@@ -6,21 +6,41 @@ const Login = ({ onAdminLogin }) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
+    console.log("Login button clicked"); // Debug log
     e.preventDefault();
+    console.log("Form submitted with:", { email, password }); // Debug log
+    
     if (email && password) {
-      // Dummy admin credentials
-      if (email === "admin@example.com" && password === "admin123") {
-        localStorage.setItem("user", email);
-        localStorage.setItem("role", "admin");
-        if (onAdminLogin) {
-          onAdminLogin();
+      try {
+        console.log("Sending login request..."); // Debug log
+        const response = await fetch("http://localhost:5000/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        });
+        console.log("Response received:", response.status); // Debug log
+        const data = await response.json();
+        console.log("Response data:", data); // Debug log
+
+        if (response.ok) {
+          localStorage.setItem("user", email);
+          localStorage.setItem("role", data.role);
+
+          if (data.role === "admin") {
+            if (onAdminLogin) onAdminLogin();
+            navigate("/admin");
+          } else {
+            navigate("/profile");
+          }
+        } else {
+          alert(data.message);
         }
-        navigate("/admin");
-      } else {
-        localStorage.setItem("user", email);
-        localStorage.setItem("role", "user");
-        navigate("/profile");
+      } catch (error) {
+        console.error("Login error:", error); // Debug log
+        alert("An error occurred during login");
       }
     } else {
       alert("Invalid credentials");
@@ -45,7 +65,7 @@ const Login = ({ onAdminLogin }) => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit">Login</button>
+        <button type="submit" onClick={() => console.log("Button clicked")}>Login</button>
       </form>
     </div>
   );

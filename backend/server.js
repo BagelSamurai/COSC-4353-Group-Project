@@ -4,8 +4,13 @@ const cors = require("cors");
 const app = express();
 const port = 5000;
 
-// Middleware
-app.use(cors());
+// Configure CORS to allow all origins for debugging
+app.use(cors({
+  origin: '*', // Allow all origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
 
 // Import routes

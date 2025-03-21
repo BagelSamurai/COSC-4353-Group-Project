@@ -1,26 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FaBell } from "react-icons/fa";
 import "./NotificationSystem.css";
-
 const NotificationBell = () => {
-  const [notifications, setNotifications] = useState([]);
+  // Sample dummy notifications
+  const [notifications] = useState([
+    { id: 1, message: "New volunteer signed up!" },
+    { id: 2, message: "Event has been updated." },
+    { id: 3, message: "You have a new message." },
+  ]);
+
+  // Whether to show/hide the dropdown
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    // Fetch notifications from the backend
-    const fetchNotifications = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/api/notifications");
-        const data = await response.json();
-        setNotifications(data);
-      } catch (error) {
-        console.error("Error fetching notifications:", error);
-      }
-    };
-
-    fetchNotifications();
-  }, []);
-
+  // Toggle dropdown on bell click
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
@@ -29,6 +21,7 @@ const NotificationBell = () => {
     <div className="notification-bell-container">
       <button className="notification-bell" onClick={handleToggle}>
         <FaBell size={20} />
+        {/* Show the notification count if there are notifications */}
         {notifications.length > 0 && (
           <span className="notification-count">{notifications.length}</span>
         )}
