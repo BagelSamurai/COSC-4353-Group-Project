@@ -1,41 +1,42 @@
-const mongoose = require('mongoose');
-const User = require('../models/User');
+require("dotenv").config(); // Load environment variables
+const mongoose = require("mongoose");
+const connectDB = require("../config/db"); // Adjust the path as needed
+const UserCredentials = require("../models/UserCredentials");
 
-const testUser = {
-  fullName: "John Doe",
-  email: "john.doe@example.com",
-  skills: ["Teaching", "First Aid", "Event Planning", "Public Speaking"],
-  experienceLevel: "Intermediate",
-  preferences: "Prefers weekend events and outdoor activities",
-  availability: ["Saturday", "Sunday", "Monday"]
+const adminUser = {
+  email: "admin@example.com",
+  password: "Test@1234", // Use a secure password in production
+  role: "admin",
 };
 
-async function createTestUser() {
+async function createAdminUser() {
   try {
-    // Connect to MongoDB
-    await mongoose.connect('mongodb://localhost:27017/volunteer_management');
-    console.log('Connected to MongoDB');
+    // Connect to MongoDB using the centralized connection function
+    await connectDB();
+    console.log("Connected to MongoDB");
 
-    // Check if user already exists
-    const existingUser = await User.findOne({ email: testUser.email });
+    // Check if the admin user already exists
+    const existingUser = await UserCredentials.findOne({
+      email: adminUser.email,
+    });
     if (existingUser) {
-      console.log('Test user already exists');
+      console.log("Admin user already exists");
       process.exit(0);
     }
 
-    // Create new user
-    const user = new User(testUser);
+    // Create new admin user
+    const user = new UserCredentials(adminUser);
     await user.save();
-    console.log('Test user created successfully:', user);
+    console.log("Admin user created successfully:", user);
 
     // Close the connection
     await mongoose.connection.close();
-    console.log('MongoDB connection closed');
+    console.log("MongoDB connection closed");
     process.exit(0);
   } catch (error) {
-    console.error('Error creating test user:', error);
+    console.error("Error creating admin user:", error);
     process.exit(1);
   }
 }
 
-createTestUser(); 
+createAdminUser();
