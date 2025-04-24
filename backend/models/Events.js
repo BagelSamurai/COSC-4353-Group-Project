@@ -37,7 +37,6 @@ const eventSchema = new mongoose.Schema({
   },
 });
 
-// Use existing model if available, otherwise compile new model
 const Event = mongoose.models.Event || mongoose.model("Event", eventSchema);
 
 module.exports = Event;

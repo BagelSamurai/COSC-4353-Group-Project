@@ -14,7 +14,10 @@
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "express-validator": "^7.2.1",
-    "mongoose": "^8.12.2"
+    "fs": "^0.0.1-security",
+    "json2csv": "^6.0.0-alpha.2",
+    "mongoose": "^8.12.2",
+    "pdfkit": "^0.17.0"
   },
   "devDependencies": {
     "jest": "^29.7.0",

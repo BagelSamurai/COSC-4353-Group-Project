@@ -29,6 +29,8 @@ const profileRoutes = require("./routes/profileRoutes");
 const authRoutes = require("./routes/authRoutes");
 const volunteerMatchingRoutes = require("./routes/volunteerMatchingRoutes");
 const volunteerHistoryRoutes = require("./routes/volunteerHistoryRoutes"); // For volunteer history
+const reportRoutes = require("./routes/reportRoutes");
+const Event = require("./models/Events");
 
 // Set up API routes with unique base paths
 app.use("/api/volunteers", volunteerRoutes);
@@ -37,9 +39,7 @@ app.use("/api/notifications", notificationRoutes);
 app.use("/api/profiles", profileRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/volunteer-matching", volunteerMatchingRoutes);
-
-// Event routes (inlined)
-const Event = require("./models/Events");
+app.use("/api/reports", reportRoutes);
 
 app.post("/api/events", async (req, res) => {
   try {
