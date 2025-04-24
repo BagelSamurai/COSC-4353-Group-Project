@@ -12,15 +12,11 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-<<<<<<< Updated upstream
-    "express": "^4.21.2"
-=======
     "dotenv": "^16.5.0",
     "express": "^4.21.2",
     "express-validator": "^7.2.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.12.2"
->>>>>>> Stashed changes
   },
   "devDependencies": {
     "jest": "^29.7.0",
