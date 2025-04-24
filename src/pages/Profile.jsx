@@ -55,7 +55,7 @@ const Profile = () => {
     setSkills(selectedOptions);
   };
 
-  const handleSubmit = (e) => {
+  /*const handleSubmit = (e) => {
     e.preventDefault();
     console.log({
       fullName,
@@ -68,7 +68,48 @@ const Profile = () => {
       preferences,
       availability,
     });
-  };
+  };*/
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    const email = localStorage.getItem("user");
+  
+    const payload = {
+      email,
+      fullName,
+      address1,
+      address2,
+      city,
+      state,
+      zip,
+      skills: skills.map((skill) => skill.value),
+      preferences,
+      availability,
+    };
+  
+    try {
+      const response = await fetch("http://localhost:5000/api/user/profile", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        alert("Profile saved successfully!");
+      } else {
+        alert(data.message || "Profile saving failed");
+      }
+    } catch (error) {
+      console.error("Error saving profile:", error);
+      alert("An error occurred while saving your profile.");
+    }
+  };  
+
 
   return (
     <div className="profile-container">
