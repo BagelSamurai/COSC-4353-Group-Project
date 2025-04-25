@@ -2,6 +2,7 @@
 const mongoose = require("mongoose");
 
 const volunteerHistorySchema = new mongoose.Schema({
+  volunteer: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   eventName: { type: String, required: true },
   eventDescription: { type: String, required: true },
   location: { type: String, required: true },

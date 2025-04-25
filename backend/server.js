@@ -1,5 +1,5 @@
 // server.js
-require("dotenv").config(); // Load environment variables at the very top
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
