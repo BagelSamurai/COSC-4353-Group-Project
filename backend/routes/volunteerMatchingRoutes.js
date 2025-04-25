@@ -3,6 +3,10 @@ const router = express.Router();
 const volunteerMatchingController = require("../controllers/volunteerMatchingController");
 
 // Get matching volunteers for an event
-router.get("/events/:eventId/matches", volunteerMatchingController.getMatchingVolunteers);
+router.get(
+  "/events/:eventId/matches",
+  volunteerMatchingController.getMatchingVolunteers
+);
+router.post("/update-match", volunteerMatchingController.updateMatchStatus);
 
-module.exports = router; 
+module.exports = router;

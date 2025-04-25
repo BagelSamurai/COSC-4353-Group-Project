@@ -7,7 +7,7 @@ const connectDB = require("./config/db");
 const app = express();
 const port = process.env.PORT || 5000;
 
-// Set up CORS
+// Middleware
 app.use(
   cors({
     origin: "*",
@@ -15,32 +15,31 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
-// Parse JSON bodies
 app.use(express.json());
 
-// Connect to MongoDB using the centralized connection
+// Connect to MongoDB
 connectDB();
 
 // Import routes
-const volunteerRoutes = require("./routes/volunteerRoutes"); // For volunteer management (e.g., sign-up, profile)
+const volunteerRoutes = require("./routes/volunteerRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
 const profileRoutes = require("./routes/profileRoutes");
 const authRoutes = require("./routes/authRoutes");
 const volunteerMatchingRoutes = require("./routes/volunteerMatchingRoutes");
-const volunteerHistoryRoutes = require("./routes/volunteerHistoryRoutes"); // For volunteer history
+const volunteerHistoryRoutes = require("./routes/volunteerHistoryRoutes");
 const reportRoutes = require("./routes/reportRoutes");
 const Event = require("./models/Events");
 
-// Set up API routes with unique base paths
+// Mount API routes
 app.use("/api/volunteers", volunteerRoutes);
 app.use("/api/volunteer-history", volunteerHistoryRoutes);
 app.use("/api/notifications", notificationRoutes);
-app.use("/api/profiles", profileRoutes);
+app.use("/api/profile", profileRoutes); // ✅ Correct singular path
 app.use("/api/auth", authRoutes);
 app.use("/api/volunteer-matching", volunteerMatchingRoutes);
 app.use("/api/reports", reportRoutes);
 
+// Event Management Endpoints
 app.post("/api/events", async (req, res) => {
   try {
     const { eventName, description, location, skills, urgency, date } =
@@ -97,5 +96,5 @@ app.delete("/api/events/:id", async (req, res) => {
 
 // Start the server
 app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+  console.log(` Server running on http://localhost:${port}`);
 });

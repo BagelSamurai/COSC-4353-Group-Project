@@ -35,6 +35,7 @@ exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await UserCredentials.findOne({ email });
+
     if (!user)
       return res.status(401).json({ error: "Invalid email or password" });
 
@@ -47,7 +48,12 @@ exports.login = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
-    res.status(200).json({ token, role: user.role });
+
+    res.status(200).json({
+      token,
+      role: user.role,
+      userId: user._id, // ✅ include userId here for frontend use
+    });
   } catch (error) {
     res.status(500).json({ error: "Server error" });
   }

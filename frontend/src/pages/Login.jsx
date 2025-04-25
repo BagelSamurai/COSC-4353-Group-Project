@@ -7,13 +7,10 @@ const Login = ({ onAdminLogin }) => {
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    console.log("Login button clicked"); // Debug log
     e.preventDefault();
-    console.log("Form submitted with:", { email, password }); // Debug log
-    
+
     if (email && password) {
       try {
-        console.log("Sending login request..."); // Debug log
         const response = await fetch("http://localhost:5000/api/auth/login", {
           method: "POST",
           headers: {
@@ -21,25 +18,25 @@ const Login = ({ onAdminLogin }) => {
           },
           body: JSON.stringify({ email, password }),
         });
-        console.log("Response received:", response.status); // Debug log
+
         const data = await response.json();
-        console.log("Response data:", data); // Debug log
 
         if (response.ok) {
           localStorage.setItem("user", email);
           localStorage.setItem("role", data.role);
+          localStorage.setItem("userId", data.userId); // Store userId for profile completion
 
           if (data.role === "admin") {
             if (onAdminLogin) onAdminLogin();
             navigate("/admin");
           } else {
-            navigate("/profile");
+            navigate("/complete-profile");
           }
         } else {
-          alert(data.message);
+          alert(data.message || "Login failed");
         }
       } catch (error) {
-        console.error("Login error:", error); // Debug log
+        console.error("Login error:", error);
         alert("An error occurred during login");
       }
     } else {
@@ -65,7 +62,7 @@ const Login = ({ onAdminLogin }) => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit" onClick={() => console.log("Button clicked")}>Login</button>
+        <button type="submit">Login</button>
       </form>
     </div>
   );

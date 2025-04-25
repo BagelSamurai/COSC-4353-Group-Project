@@ -1,18 +1,39 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  useNavigate,
+} from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Admin from "./pages/Admin/Admin";
 import VolunteerHistory from "./pages/Admin/VolunteerHistory";
 import Events from "./pages/Admin/Events";
 import VolunteerMatching from "./pages/Admin/VolunteerMatching";
+import CompleteProfile from "./pages/CompleteProfile";
 import "./App.css";
 
 const App = () => {
   const [userRole, setUserRole] = useState(null);
 
-  const handleAdminLogin = () => setUserRole("admin");
-  const handleLogout = () => setUserRole(null);
+  useEffect(() => {
+    // Optionally restore role from localStorage or session if needed
+    const savedRole = localStorage.getItem("role");
+    if (savedRole) setUserRole(savedRole);
+  }, []);
+
+  const handleAdminLogin = () => {
+    setUserRole("admin");
+    localStorage.setItem("role", "admin");
+  };
+
+  const handleLogout = () => {
+    setUserRole(null);
+    localStorage.removeItem("role");
+    localStorage.removeItem("userId");
+  };
 
   return (
     <Router>
@@ -29,12 +50,15 @@ const App = () => {
           )}
         </nav>
       </div>
+
       <Routes>
         <Route
           path="/login"
           element={<Login onAdminLogin={handleAdminLogin} />}
         />
         <Route path="/register" element={<Register />} />
+        <Route path="/complete-profile" element={<CompleteProfile />} />
+
         <Route
           path="/admin/*"
           element={userRole === "admin" ? <Admin /> : <div />}

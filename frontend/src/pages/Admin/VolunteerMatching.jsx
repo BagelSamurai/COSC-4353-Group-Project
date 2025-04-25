@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./VolunteerMatching.css";
-import axios from 'axios';
+import axios from "axios";
 
 const VolunteerMatching = () => {
   const [selectedEvent, setSelectedEvent] = useState("");
@@ -10,24 +10,21 @@ const VolunteerMatching = () => {
   const [loading, setLoading] = useState(false);
   const [loadingEvents, setLoadingEvents] = useState(true);
 
-  // Fetch all events when component mounts
   useEffect(() => {
     fetchEvents();
   }, []);
 
-  // Fetch all events from the database
   const fetchEvents = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/events');
+      const response = await axios.get("http://localhost:5000/api/events");
       setEvents(response.data);
     } catch (err) {
-      setError('Error fetching events: ' + err.message);
+      setError("Error fetching events: " + err.message);
     } finally {
       setLoadingEvents(false);
     }
   };
 
-  // Handle event selection and fetch matching volunteers
   const handleEventChange = async (event) => {
     const eventId = event.target.value;
     setSelectedEvent(eventId);
@@ -40,17 +37,36 @@ const VolunteerMatching = () => {
 
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:5000/api/volunteer-matching/events/${eventId}/matches`);
+      const response = await axios.get(
+        `http://localhost:5000/api/volunteer-matching/events/${eventId}/matches`
+      );
       setMatchedVolunteers(response.data.matchedVolunteers || []);
     } catch (err) {
-      setError('Error finding matches: ' + err.message);
+      setError("Error finding matches: " + err.message);
       setMatchedVolunteers([]);
     } finally {
       setLoading(false);
     }
   };
 
-  // Format date for display
+  const handleMatchStatusUpdate = async (userId, status) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/volunteer-matching/update-match",
+        {
+          userId,
+          eventId: selectedEvent,
+          status,
+        }
+      );
+
+      alert(`Volunteer ${status} successfully!`);
+    } catch (err) {
+      console.error("Error updating match status:", err.message);
+      alert("Failed to update match status.");
+    }
+  };
+
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString();
   };
@@ -65,7 +81,6 @@ const VolunteerMatching = () => {
         <div className="form-section">
           <h2>Match Volunteers</h2>
 
-          {/* Select Event */}
           <div className="input-field">
             <label htmlFor="eventChoices">Select an Event</label>
             {loadingEvents ? (
@@ -80,7 +95,8 @@ const VolunteerMatching = () => {
                 <option value="">Select Events</option>
                 {events.map((event) => (
                   <option key={event._id} value={event._id}>
-                    {event.eventName} - {formatDate(event.date)} - Required Skills: {event.skills.join(", ")}
+                    {event.eventName} - {formatDate(event.date)} - Required
+                    Skills: {event.skills.join(", ")}
                   </option>
                 ))}
               </select>
@@ -88,7 +104,6 @@ const VolunteerMatching = () => {
             {error && <div className="error-message">{error}</div>}
           </div>
 
-          {/* Display Matched Volunteers */}
           {loading ? (
             <div className="loading-spinner">Finding matches...</div>
           ) : matchedVolunteers.length > 0 ? (
@@ -100,31 +115,42 @@ const VolunteerMatching = () => {
                   className="volunteer-info"
                   data-testid="volunteer-info"
                 >
-                  <h3 className="volunteer-name">{match.userProfile?.fullName || 'Unknown Volunteer'}</h3>
+                  <h3 className="volunteer-name">
+                    {match.userProfile?.fullName || "Unknown Volunteer"}
+                  </h3>
                   <p>
                     <strong>Match Score:</strong> {match.matchScore}%
                   </p>
                   <p>
-                    <strong>Matching Skills:</strong> {match.matchingSkills.join(", ")}
+                    <strong>Matching Skills:</strong>{" "}
+                    {match.matchingSkills.join(", ")}
                   </p>
                   <p>
-                    <strong>Experience:</strong> {match.userProfile?.experienceLevel || 'Not specified'}
+                    <strong>Experience:</strong>{" "}
+                    {match.userProfile?.experienceLevel || "Not specified"}
                   </p>
                   <p>
-                    <strong>Preferences:</strong> {match.userProfile?.preferences || 'Not specified'}
+                    <strong>Preferences:</strong>{" "}
+                    {match.userProfile?.preferences || "Not specified"}
                   </p>
                   <p>
                     <strong>Availability:</strong>{" "}
-                    {match.userProfile?.availability?.join(", ") || 'Not specified'}
+                    {match.userProfile?.availability?.join(", ") ||
+                      "Not specified"}
                   </p>
-                  <button 
-                    onClick={() => handleMatchStatusUpdate(match.userId, 'Accepted')}
+
+                  <button
+                    onClick={() =>
+                      handleMatchStatusUpdate(match.userId, "Accepted")
+                    }
                     className="match-action-button accept"
                   >
                     Accept Match
                   </button>
-                  <button 
-                    onClick={() => handleMatchStatusUpdate(match.userId, 'Rejected')}
+                  <button
+                    onClick={() =>
+                      handleMatchStatusUpdate(match.userId, "Rejected")
+                    }
                     className="match-action-button reject"
                   >
                     Reject Match

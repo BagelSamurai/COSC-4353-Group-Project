@@ -1,37 +1,43 @@
-const Event = require('../models/Event');
-const User = require('../models/User');
+const Event = require("../models/Event");
+const User = require("../models/User");
 
 // Calculate match score between a user and an event
 const calculateMatchScore = (user, event) => {
   let score = 0;
   const maxScore = 100;
 
-  // Calculate skill match (50% of total score)
-  const userSkills = new Set(user.skills.map(skill => skill.toLowerCase()));
-  const eventSkills = new Set(event.skills.map(skill => skill.toLowerCase()));
-  const matchingSkills = [...userSkills].filter(skill => eventSkills.has(skill));
+  // Skill match (50%)
+  const userSkills = new Set(
+    (user.skills || []).map((skill) => skill.toLowerCase())
+  );
+  const eventSkills = new Set(
+    (event.skills || []).map((skill) => skill.toLowerCase())
+  );
+  const matchingSkills = [...userSkills].filter((skill) =>
+    eventSkills.has(skill)
+  );
   const skillScore = (matchingSkills.length / event.skills.length) * 50;
   score += skillScore;
 
-  // Add experience bonus (20% of total score)
+  // Experience bonus (20%)
   const experienceBonus = {
-    'Beginner': 10,
-    'Intermediate': 15,
-    'Advanced': 20
+    Beginner: 10,
+    Intermediate: 15,
+    Advanced: 20,
   };
   score += experienceBonus[user.experienceLevel] || 0;
 
-  // Add availability bonus (30% of total score)
+  // Availability bonus (30%)
   const eventDate = new Date(event.date);
-  const dayOfWeek = eventDate.toLocaleDateString('en-US', { weekday: 'long' });
-  if (user.availability.includes(dayOfWeek)) {
+  const dayOfWeek = eventDate.toLocaleDateString("en-US", { weekday: "long" });
+  if ((user.availability || []).includes(dayOfWeek)) {
     score += 30;
   }
 
   return Math.min(Math.round(score), maxScore);
 };
 
-// Get matching volunteers for an event
+// GET /api/volunteer-matching/events/:eventId/matches
 exports.getMatchingVolunteers = async (req, res) => {
   try {
     const eventId = req.params.eventId;
@@ -41,14 +47,12 @@ exports.getMatchingVolunteers = async (req, res) => {
       return res.status(404).json({ message: "Event not found." });
     }
 
-    // Get all users (in a real app, you'd want to filter this)
     const users = await User.find();
 
-    // Calculate matches
-    const matchedVolunteers = users.map(user => {
+    const matchedVolunteers = users.map((user) => {
       const matchScore = calculateMatchScore(user, event);
-      const matchingSkills = user.skills.filter(skill => 
-        event.skills.map(s => s.toLowerCase()).includes(skill.toLowerCase())
+      const matchingSkills = user.skills.filter((skill) =>
+        event.skills.map((s) => s.toLowerCase()).includes(skill.toLowerCase())
       );
 
       return {
@@ -57,20 +61,40 @@ exports.getMatchingVolunteers = async (req, res) => {
           fullName: user.fullName,
           experienceLevel: user.experienceLevel,
           preferences: user.preferences,
-          availability: user.availability
+          availability: user.availability,
         },
         matchScore,
-        matchingSkills
+        matchingSkills,
       };
     });
 
-    // Sort by match score and filter out low matches
     const filteredMatches = matchedVolunteers
-      .filter(match => match.matchScore > 0)
+      .filter((match) => match.matchScore > 0)
       .sort((a, b) => b.matchScore - a.matchScore);
 
     res.status(200).json({ matchedVolunteers: filteredMatches });
   } catch (error) {
-    res.status(500).json({ message: "Error finding matches.", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error finding matches.", error: error.message });
   }
-}; 
+};
+
+// POST /api/volunteer-matching/update-match
+exports.updateMatchStatus = async (req, res) => {
+  const { userId, eventId, status } = req.body;
+
+  if (!userId || !eventId || !status) {
+    return res.status(400).json({ message: "Missing required fields." });
+  }
+
+  try {
+    // Log or save decision (add DB saving later if needed)
+    console.log(`User ${userId} matched to Event ${eventId} => ${status}`);
+    res.status(200).json({ message: `Match ${status} recorded.` });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error updating match status.", error: error.message });
+  }
+};
